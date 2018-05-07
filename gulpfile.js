@@ -3,10 +3,25 @@ var gulp = require('gulp');
 //Sass muss ebenfalls als dependency bekannt gemacht werden
 var sass = require('gulp-sass');
 
-//Autorefixer
+//Autoprefixer
 var autoprefixer = require('gulp-autoprefixer');
 
-gulp.task('default', defaultTask);
+//Browsersync
+var browserSync = require('browser-sync').create();
+
+// Static server
+gulp.task('browser-sync', function() {
+    browserSync.init({
+        server: {
+            baseDir: "./"
+        },
+        browser: "google chrome"
+    });
+});
+
+gulp.task('default', function() {
+    gulp.watch('sass/**/*.scss', ['styles']);
+});
 
 gulp.task('styles', function() {
     gulp.src('sass/**/*.scss')
@@ -19,7 +34,3 @@ gulp.task('styles', function() {
         .pipe(gulp.dest('./css'));
 });
 
-function defaultTask(done) {
-    console.log("First Gulp-Task")
-  done();
-}

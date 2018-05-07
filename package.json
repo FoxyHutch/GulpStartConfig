@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/FoxyHutch/GulpStartConfig#readme",
   "dependencies": {
+    "browser-sync": "^2.24.4",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^5.0.0",
     "gulp-sass": "^4.0.1",
