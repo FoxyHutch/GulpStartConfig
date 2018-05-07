@@ -1,0 +1,23 @@
+{
+  "name": "webtoolingandautomation",
+  "version": "1.0.0",
+  "description": "Gulp Start Config",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FoxyHutch/GulpStartConfig.git"
+  },
+  "author": "Kester Lotz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FoxyHutch/GulpStartConfig/issues"
+  },
+  "homepage": "https://github.com/FoxyHutch/GulpStartConfig#readme",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "npm": "^6.0.0"
+  }
+}
