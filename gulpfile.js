@@ -1,3 +1,5 @@
+/*eslint-disable */
+
 var gulp = require('gulp');
 
 //Sass muss ebenfalls als dependency bekannt gemacht werden
