@@ -1,1 +1,4 @@
-function test(){console.log("Test")}
+// Test esLint
+function test() {
+  console.log('Test');
+};

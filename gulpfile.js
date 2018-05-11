@@ -17,6 +17,9 @@ var concat = require('gulp-concat');
 //Uglify
 var uglify = require('gulp-uglify');
 
+//Babel
+var babel = require('gulp-babel');
+
 
 gulp.task('default', ['copy-html', 'copy-images', 'styles', 'scripts'], function() {
     gulp.watch('sass/**/*.scss', ['styles']);
@@ -49,12 +52,14 @@ gulp.task('browser-sync', function() {
 
 gulp.task('scripts', function() {
     gulp.src('./js/**/*.js')
+        .pipe(babel())
         .pipe(concat('all.js'))
         .pipe(gulp.dest('./dist/js'));
 })
 
 gulp.task('scripts-dist', function() {
     gulp.src('./js/**/*.js')
+        .pipe(babel())
         .pipe(concat('all.js'))
         .pipe(uglify())
         .pipe(gulp.dest('./dist/js'));
