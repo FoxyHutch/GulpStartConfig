@@ -11,6 +11,9 @@ var autoprefixer = require('gulp-autoprefixer');
 //Browsersync
 var browserSync = require('browser-sync').create();
 
+//JS-Concat
+var concat = require('gulp-concat');
+
 
 gulp.task('default', ['copy-html', 'copy-images', 'styles'], function() {
     gulp.watch('sass/**/*.scss', ['styles']);
@@ -33,6 +36,18 @@ gulp.task('browser-sync', function() {
     browserSync.stream();
 });
 
+gulp.task('scripts', function() {
+    gulp.src('./js/**/*.js')
+        .pipe(concat('all.js'))
+        .pipe(gulp.dest('./dist/js'));
+})
+
+gulp.task('scripts-dest', function() {
+    gulp.src('./js/**/*.js')
+        .pipe(concat('all.js'))
+        .pipe(gulp.dest('./dist/js'));
+})
+
 
 gulp.task('copy-html', function(){
     gulp.src('./index.html')
@@ -45,9 +60,12 @@ gulp.task('copy-images', function() {
 })
 
 gulp.task('styles', function() {
-    gulp.src('sass/**/*.scss')
+
+    // Zwei Möglichkeiten: Alle einzelnd importieren, oder über SASS alle in ein importieren
+    //gulp.src('sass/**/*.scss')
+    gulp.src('./sass/main.scss')
         // Konvertiert alle in CSS-Files und erzuegt Fehlermeldung bei Fehler ohne verarbeitung abzubrechen
-        .pipe(sass().on('error', sass.logError))
+        .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
         // Autoprefixer über CSS jagen
         .pipe(autoprefixer({
             browsers: ['last 2 versions']
