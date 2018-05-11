@@ -14,8 +14,11 @@ var browserSync = require('browser-sync').create();
 //JS-Concat
 var concat = require('gulp-concat');
 
+//Uglify
+var uglify = require('gulp-uglify');
 
-gulp.task('default', ['copy-html', 'copy-images', 'styles'], function() {
+
+gulp.task('default', ['copy-html', 'copy-images', 'styles', 'scripts'], function() {
     gulp.watch('sass/**/*.scss', ['styles']);
     gulp.watch('/index.html', ['copy-html']);
     gulp.watch("./dist/index.html").on('change', browserSync.reload);
@@ -24,6 +27,14 @@ gulp.task('default', ['copy-html', 'copy-images', 'styles'], function() {
         server: './dist/'
     })
 });
+
+//Productive Task
+gulp.task('dist', [
+    'copy-html',
+    'copy-images',
+    'styles',
+    'scripts-dist'
+]);
 
 // Static server
 gulp.task('browser-sync', function() {
@@ -42,9 +53,10 @@ gulp.task('scripts', function() {
         .pipe(gulp.dest('./dist/js'));
 })
 
-gulp.task('scripts-dest', function() {
+gulp.task('scripts-dist', function() {
     gulp.src('./js/**/*.js')
         .pipe(concat('all.js'))
+        .pipe(uglify())
         .pipe(gulp.dest('./dist/js'));
 })
 
