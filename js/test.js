@@ -1,4 +1,4 @@
 // Test esLint
 function test() {
-    console.log('Test');
+  console.log('Test')
 };

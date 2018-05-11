@@ -11,6 +11,17 @@ var autoprefixer = require('gulp-autoprefixer');
 //Browsersync
 var browserSync = require('browser-sync').create();
 
+
+gulp.task('default', ['copy-html', 'copy-images', 'styles'], function() {
+    gulp.watch('sass/**/*.scss', ['styles']);
+    gulp.watch('/index.html', ['copy-html']);
+    gulp.watch("./dist/index.html").on('change', browserSync.reload);
+
+    browserSync.init({
+        server: './dist/'
+    })
+});
+
 // Static server
 gulp.task('browser-sync', function() {
     browserSync.init({
@@ -19,11 +30,19 @@ gulp.task('browser-sync', function() {
         },
         browser: "google chrome"
     });
+    browserSync.stream();
 });
 
-gulp.task('default', function() {
-    gulp.watch('sass/**/*.scss', ['styles']);
-});
+
+gulp.task('copy-html', function(){
+    gulp.src('./index.html')
+        .pipe(gulp.dest('./dist/'));
+})
+
+gulp.task('copy-images', function() {
+    gulp.src('img/*')
+        .pipe(gulp.dest('./dist/img'))
+})
 
 gulp.task('styles', function() {
     gulp.src('sass/**/*.scss')
@@ -33,6 +52,7 @@ gulp.task('styles', function() {
         .pipe(autoprefixer({
             browsers: ['last 2 versions']
         }))
-        .pipe(gulp.dest('./css'));
+        .pipe(gulp.dest('./dist/css'))
+        .pipe(browserSync.stream());
 });
 
