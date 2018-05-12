@@ -162,4 +162,3 @@ gulp.task('styles', function() {
         .pipe(gulp.dest('./dist/css'))
         .pipe(browserSync.stream());
 });
-
