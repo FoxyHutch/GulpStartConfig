@@ -23,6 +23,12 @@ var babel = require('gulp-babel');
 //SourceMaps
 var sourcemaps = require('gulp-sourcemaps');
 
+//Imagemin
+var imagemin = require('gulp-imagemin');
+
+//PNG-Qunatization
+var pngquant = require('imagemin-pngquant');
+
 
 gulp.task('default', ['copy-html', 'copy-images', 'styles', 'scripts'], function() {
     gulp.watch('sass/**/*.scss', ['styles']);
@@ -79,6 +85,14 @@ gulp.task('copy-html', function(){
 
 gulp.task('copy-images', function() {
     gulp.src('img/*')
+        .pipe(gulp.dest('./dist/img'))
+})
+
+gulp.task('copy-images-dist', function() {
+    gulp.src('./img/*')
+        .pipe(imagemin({
+            progressive: true
+        }))
         .pipe(gulp.dest('./dist/img'))
 })
 
