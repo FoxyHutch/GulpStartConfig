@@ -44,9 +44,9 @@ gulp.task('default', ['copy-html', 'copy-images', 'styles', 'scripts'], function
 //Productive Task
 gulp.task('dist', [
     'copy-html',
-    'copy-images',
     'styles',
-    'scripts-dist'
+    'scripts-dist',
+    'copy-images-dist'
 ]);
 
 // Static server
@@ -91,7 +91,8 @@ gulp.task('copy-images', function() {
 gulp.task('copy-images-dist', function() {
     gulp.src('./img/*')
         .pipe(imagemin({
-            progressive: true
+            progressive: true,
+            use: [pngquant()]
         }))
         .pipe(gulp.dest('./dist/img'))
 })
