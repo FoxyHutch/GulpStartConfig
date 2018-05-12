@@ -20,11 +20,15 @@ var uglify = require('gulp-uglify');
 //Babel
 var babel = require('gulp-babel');
 
+//SourceMaps
+var sourcemaps = require('gulp-sourcemaps');
+
 
 gulp.task('default', ['copy-html', 'copy-images', 'styles', 'scripts'], function() {
     gulp.watch('sass/**/*.scss', ['styles']);
     gulp.watch('/index.html', ['copy-html']);
-    gulp.watch("./dist/index.html").on('change', browserSync.reload);
+    gulp.watch('./dist/index.html').on('change', browserSync.reload);
+    gulp.watch('./js/**/*.js', ['scripts']);
 
     browserSync.init({
         server: './dist/'
@@ -59,9 +63,11 @@ gulp.task('scripts', function() {
 
 gulp.task('scripts-dist', function() {
     gulp.src('./js/**/*.js')
+        .pipe(sourcemaps.init())
         .pipe(babel())
         .pipe(concat('all.js'))
         .pipe(uglify())
+        .pipe(sourcemaps.write())
         .pipe(gulp.dest('./dist/js'));
 })
 
